@@ -1,0 +1,116 @@
+<div class="table">
+  <table style="width:80%" align="center">
+    <tr>
+      <th>ID</th>
+      <th>Version</th>
+      <th>IDbn</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Pictures</th>
+      <th>Price</th>
+      <th>VAT</th>
+      <th>Author</th>
+      <th>Handle</th>
+    </tr>
+    <tr
+      *ngFor="let Book of Books"
+    >
+      <td>{{Books.id}}</td>
+      <td>{{Books.version}}</td>
+      <td>{{Books.isbn}}</td>
+      <td>{{Books.name}}</td>
+      <tn>{{Books.description}}</tn>
+      <tn>{{Books.picture}}</tn>
+      <tn>{{Books.price}}</tn>
+      <tn>{{Books.vat}}</tn>
+      <tn>{{Books.author}}</tn>
+
+      <td>
+        <button type="button" data-toggle="modal" data-target="#editModal" (click)= "passEditParams(book)"><i class="fas fa-edit"></i></button>
+        <button type="button" (click)="deleteBooks(book.id)"><i class="fas fa-trash-alt"></i></button>
+      </td>
+    </tr>
+    <tr>
+      <td><button type="button" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus-square"></i></button></td>
+    </tr>
+  </table>
+  <!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create New Booking</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>User ID: <input [(ngModel)]="bookingToAdd.user_id"/></p>
+        <p>Field ID: <input [(ngModel)]="bookingToAdd.field_id"></p>
+        Date: <form class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="dd-mm-yyy"
+                     name="dp" [(ngModel)]="bookingToAdd.date" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+        <ng-template #footerTemplate>
+          <hr class="my-0">
+          <button class="btn btn-primary btn-sm m-2 float-left" (click)="date = today; d.close()">Today</button>
+          <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+        </ng-template>
+        Time: <ngb-timepicker [(ngModel)]="bookingToAdd.time"></ngb-timepicker>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addBooking()" data-dismiss="modal">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Booking</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>User ID: <input [(ngModel)]="bookingToEdit.user_id"/></p>
+        <p>Field ID: <input [(ngModel)]="bookingToEdit.field_id"></p>
+        Date: <form class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="dd-mm-yyy"
+                     name="dp" [(ngModel)]="bookingToEdit.date" ngbDatepicker [footerTemplate]="footerTemplate" #d1="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+        <ng-template #footerTemplate>
+          <hr class="my-0">
+          <button class="btn btn-primary btn-sm m-2 float-left" (click)="date = today; d.close()">Today</button>
+          <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+        </ng-template>
+        Time: <ngb-timepicker [(ngModel)]="bookingToEdit.time"></ngb-timepicker>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editBooking()" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--  -->
+  
